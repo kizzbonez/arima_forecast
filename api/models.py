@@ -2,9 +2,8 @@ from django.db import models
 
 class SalesData(models.Model):
     date = models.DateField()
-    item_name = models.CharField(max_length=255)
-    sales = models.IntegerField()
-    current_stocks = models.IntegerField()
+    sold_qty = models.IntegerField(default=0)
+    item_id = models.TextField(max_length=10,null=True,blank=True)
 
     def __str__(self):
         return f"{self.item_name} - {self.date}"
