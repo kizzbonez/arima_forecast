@@ -17,7 +17,6 @@ import joblib
 from dateutil import parser
 import itertools
 from django.http import HttpRequest
-from pmdarima import auto_arima
 from sklearn.preprocessing import MinMaxScaler
 import os
 import pickle
