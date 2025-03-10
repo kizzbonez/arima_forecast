@@ -2,4 +2,4 @@ arima_model_*.pkl
 venv/
 temp_venv/
 temp_en
-models/
+temp_en
