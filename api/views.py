@@ -278,9 +278,18 @@ def predict_sales_with_model(request):
         # Calculate SMAPE
         smape_value = smape(test_actual, forecast)
 
-        future_dates = pd.date_range(start=item_df.index[-1], periods=10, freq='W')
-        future_forecast_scaled = model.forecast(steps=10)
-        future_forecast = scaler.inverse_transform(future_forecast_scaled.values.reshape(-1, 1)).flatten()             
+        # Get the current year
+        current_year = datetime.now().year
+
+        # Start and end dates for this year
+        start_date = pd.to_datetime(f'{current_year}-01-01')
+        end_date = pd.to_datetime(f'{current_year}-12-31')
+
+        # Generate future dates from start_date to end_date with weekly frequency
+        future_dates = pd.date_range(start=start_date, end=end_date, freq='W')
+        # Forecast the future values (assuming model and scaler are defined elsewhere)
+        future_forecast_scaled = model.forecast(steps=len(future_dates))  # Adjust steps to match the length of future_dates
+        future_forecast = scaler.inverse_transform(future_forecast_scaled.values.reshape(-1, 1)).flatten()           
         # Calculate additional accuracy metrics
         mae = mean_absolute_error(test_actual, forecast)
         mse = mean_squared_error(test_actual, forecast)
